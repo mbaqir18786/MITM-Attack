@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNIS Project: MITM Attack Simulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Man-in-the-Middle (MITM) Lab</h1>
+        <p>A Technical Simulation of Data Interception and Encryption</p>
+    </header>
+
+    <main class="container">
+        <!-- 1. CONFIGURATION & MODE SWITCH -->
+        <section class="card settings">
+            <h3>1. Select Security Mode</h3>
+            <div class="mode-selector">
+                <button id="insecure-mode" class="active">Insecure Mode (HTTP)</button>
+                <button id="secure-mode">Secure Mode (HTTPS Sim)</button>
+            </div>
+            <p id="mode-desc">Current Mode: <strong>Insecure</strong>. Data is sent in raw plaintext.</p>
+        </section>
+
+        <!-- 2. LOGIN FORM -->
+        <section class="card input-area">
+            <h3>2. User Login</h3>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" id="btn-login">Dispatch to Server</button>
+            </form>
+        </section>
+
+        <!-- 3. PACKET SIMULATION BOX -->
+        <section class="card packet-box">
+            <h3>3. Packet Interception View</h3>
+            <div class="packet-display">
+                <p><strong>Raw Payload:</strong></p>
+                <code id="packet-content">Waiting for input...</code>
+            </div>
+        </section>
+
+        <!-- 4. FLOW DIAGRAM -->
+        <section class="card diagram">
+            <h3>4. Network Flow Diagram</h3>
+            <div class="flow">
+                <div class="node user">User (Client)</div>
+                <div class="arrow">⮕</div>
+                <div class="node attacker">Attacker (Proxy)</div>
+                <div class="arrow">⮕</div>
+                <div class="node server">Real Server (Target)</div>
+            </div>
+        </section>
+
+        <!-- 5. ATTACKER DASHBOARD -->
+        <section class="card logs">
+            <h3>5. Attacker Dashboard (Real Logs)</h3>
+            <div class="table-container">
+                <table id="log-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Mode</th>
+                            <th>Username</th>
+                            <th>Password (Intercepted)</th>
+                            <th>Raw Request</th>
+                        </tr>
+                    </thead>
+                    <tbody id="log-body">
+                        <!-- Logs will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 6. CNIS CONCEPTS SECTION -->
+        <section class="card info">
+            <h3>6. CNIS Technical Concepts</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>What is MITM?</h4>
+                    <p>A Man-in-the-Middle (MITM) attack occurs when an attacker sits between two communicating parties to intercept, and sometimes alter, the data being exchanged without their knowledge.</p>
+                </div>
+                <div class="info-item">
+                    <h4>ARP Spoofing</h4>
+                    <p>Address Resolution Protocol (ARP) spoofing is a technique where an attacker sends fake ARP messages onto a LAN to link their MAC address with the IP address of a legitimate server/gateway.</p>
+                </div>
+                <div class="info-item">
+                    <h4>Packet Interception</h4>
+                    <p>This is the process of capturing data packets as they travel across a network. Without encryption, these packets can be read like an open book.</p>
+                </div>
+                <div class="info-item">
+                    <h4>HTTP vs HTTPS</h4>
+                    <p>HTTP sends data in plaintext (Insecure). HTTPS uses TLS/SSL to encrypt the data, ensuring that even if intercepted, it cannot be read by an attacker.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>CNIS Mini Project | Created for Educational Purposes</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
