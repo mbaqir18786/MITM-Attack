@@ -5,11 +5,16 @@
   "main": "real_server.js",
   "scripts": {
     "start-real": "node real_server.js",
-    "start-attacker": "node attacker_server.js"
+    "start-attacker": "node attacker_server.js",
+    "start-ui": "node ui_server.js",
+    "start-all": "concurrently \"npm run start-real\" \"npm run start-attacker\" \"npm run start-ui\""
   },
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
   }
 }
