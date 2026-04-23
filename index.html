@@ -3,110 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CNIS Project: MITM Attack Simulation</title>
+    <title>⚡ CYBER LAB | MITM Attack Simulation</title>
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Man-in-the-Middle (MITM) Lab</h1>
-        <p>A Technical Simulation of Data Interception and Encryption</p>
+        <h1>MITM Simulation</h1>
+        <p>Man-in-the-Middle Attack Terminal & Educational Lab</p>
     </header>
 
     <main class="container">
-        <!-- 1. CONFIGURATION & MODE SWITCH -->
+        <!-- 1. CONFIGURATION -->
         <section class="card settings">
-            <h3>1. Select Security Mode</h3>
+            <h3>System Config</h3>
             <div class="mode-selector">
-                <button id="insecure-mode" class="active">Insecure Mode (HTTP)</button>
-                <button id="secure-mode">Secure Mode (HTTPS Sim)</button>
+                <button id="insecure-mode" class="active" title="Original plaintext HTTP transmission">
+                    <span>Insecure (HTTP)</span>
+                </button>
+                <button id="secure-mode" title="Client-side Base64 masking">
+                    <span>Secure (HTTPS Sim)</span>
+                </button>
+                <button id="hash-mode" title="Modern SHA-256 Hashing simulation">
+                    <span>Hashing (Modern)</span>
+                </button>
             </div>
-            <p id="mode-desc">Current Mode: <strong>Insecure</strong>. Data is sent in raw plaintext.</p>
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <input type="checkbox" id="phish-toggle" style="width: auto;">
+                    <span style="font-size: 0.8rem; color: var(--attacker);">Inject Malicious Script (MITM)</span>
+                </label>
+            </div>
+            <div style="margin-top: 1.5rem;">
+                <p id="mode-desc" style="font-size: 0.85rem; color: var(--text-dim);">
+                    Mode: <strong style="color: var(--attacker);">Insecure</strong>. Data is sent as raw strings.
+                </p>
+                <div style="background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+                    <code style="font-size: 0.7rem; color: var(--primary);" id="attacker-url">scanning network...</code>
+                </div>
+            </div>
         </section>
 
         <!-- 2. LOGIN FORM -->
         <section class="card input-area">
-            <h3>2. User Login</h3>
+            <h3>Access Terminal</h3>
             <form id="login-form">
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="username" placeholder="Enter username" required>
+                    <label>ID_USER</label>
+                    <input type="text" id="username" placeholder="usr_01" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="Enter password" required>
+                    <label>SYS_SECRET</label>
+                    <input type="password" id="password" placeholder="••••••••" required autocomplete="off">
                 </div>
-                <button type="submit" id="btn-login">Dispatch to Server</button>
+                <button type="submit" id="btn-login">Initialize Dispatch ⮕</button>
             </form>
         </section>
 
-        <!-- 3. PACKET SIMULATION BOX -->
-        <section class="card packet-box">
-            <h3>3. Packet Interception View</h3>
-            <div class="packet-display">
-                <p><strong>Raw Payload:</strong></p>
-                <code id="packet-content">Waiting for input...</code>
+        <!-- 3. NETWORK DIAGRAM -->
+        <section class="card diagram">
+            <h3>Live Traffic Flow</h3>
+            <div class="flow-container">
+                <div class="node-item active" style="color: var(--primary);" id="node-client">
+                    <div class="node-circle">💻</div>
+                    <div class="node-label">Victim</div>
+                </div>
+
+                <div class="flow-line">
+                    <div id="packet-dot" class="packet-dot"></div>
+                </div>
+
+                <div class="node-item" style="color: var(--attacker);" id="node-attacker">
+                    <div class="node-circle">💀</div>
+                    <div class="node-label">Attacker</div>
+                </div>
+
+                <div class="node-item" style="color: var(--server);" id="node-server">
+                    <div class="node-circle">🏢</div>
+                    <div class="node-label">Server</div>
+                </div>
             </div>
         </section>
 
-        <!-- 4. FLOW DIAGRAM -->
-        <section class="card diagram">
-            <h3>4. Network Flow Diagram</h3>
-            <div class="flow">
-                <div class="node user">User (Client)</div>
-                <div class="arrow">⮕</div>
-                <div class="node attacker">Attacker (Proxy)</div>
-                <div class="arrow">⮕</div>
-                <div class="node server">Real Server (Target)</div>
+        <!-- 4. PACKET VIEW -->
+        <section class="card packet-box">
+            <h3>Packet Buffer Interception</h3>
+            <div class="packet-display">
+                <code id="packet-content">// Waiting for transmission pulse...</code>
             </div>
         </section>
 
         <!-- 5. ATTACKER DASHBOARD -->
         <section class="card logs">
-            <h3>5. Attacker Dashboard (Real Logs)</h3>
+            <h3>Intercepted Data Stream</h3>
             <div class="table-container">
                 <table id="log-table">
                     <thead>
                         <tr>
-                            <th>Timestamp</th>
-                            <th>Mode</th>
-                            <th>Username</th>
-                            <th>Password (Intercepted)</th>
-                            <th>Raw Request</th>
+                            <th>TIMESTAMP</th>
+                            <th>PROTOCOL</th>
+                            <th>ID_USER</th>
+                            <th>RAW_SECRET</th>
+                            <th>RAW_PAYLOAD</th>
                         </tr>
                     </thead>
                     <tbody id="log-body">
-                        <!-- Logs will be populated here -->
+                        <!-- Stream data will arrive here -->
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- 6. CNIS CONCEPTS SECTION -->
+        <!-- 6. INFORMATION -->
         <section class="card info">
-            <h3>6. CNIS Technical Concepts</h3>
+            <h3>Knowledge Base</h3>
             <div class="info-grid">
                 <div class="info-item">
-                    <h4>What is MITM?</h4>
-                    <p>A Man-in-the-Middle (MITM) attack occurs when an attacker sits between two communicating parties to intercept, and sometimes alter, the data being exchanged without their knowledge.</p>
+                    <h4>The MITM Vulnerability</h4>
+                    <p>In this lab, the "Attacker" acts as a proxy. Real MITM attacks often use <strong>ARP Spoofing</strong> to trick your device into sending data through them.</p>
                 </div>
                 <div class="info-item">
-                    <h4>ARP Spoofing</h4>
-                    <p>Address Resolution Protocol (ARP) spoofing is a technique where an attacker sends fake ARP messages onto a LAN to link their MAC address with the IP address of a legitimate server/gateway.</p>
+                    <h4>Encoding (Base64) vs Encryption</h4>
+                    <p>Observe the "Secure Mode". It uses Base64. This is <strong>not encryption</strong>; it's just a different way to write the same text. Anyone can decode it.</p>
                 </div>
                 <div class="info-item">
-                    <h4>Packet Interception</h4>
-                    <p>This is the process of capturing data packets as they travel across a network. Without encryption, these packets can be read like an open book.</p>
+                    <h4>Why Hashing is Better</h4>
+                    <p>In "Hashing Mode", the password itself is never sent. A mathematical fingerprint (hash) is sent instead, making it useless to an interceptor.</p>
                 </div>
                 <div class="info-item">
-                    <h4>HTTP vs HTTPS</h4>
-                    <p>HTTP sends data in plaintext (Insecure). HTTPS uses TLS/SSL to encrypt the data, ensuring that even if intercepted, it cannot be read by an attacker.</p>
+                    <h4>The Role of TLS (HTTPS)</h4>
+                    <p>HTTPS doesn't just encrypt; it uses <strong>Certificates</strong> to prove the server is who they say they are, preventing the "Attacker Proxy" from mimicking the server.</p>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>CNIS Mini Project | Created for Educational Purposes</p>
+        <p>© 2026 CYBERNETICS LAB | MITM EDUCATIONAL SIMULATION</p>
     </footer>
 
     <script src="script.js"></script>

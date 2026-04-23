@@ -1,12 +1,17 @@
-/* client/style.css */
+/* MITM Project - Cyber Security Design System */
 :root {
-    --primary: #3498db;
-    --secondary: #2c3e50;
-    --attacker: #e74c3c;
-    --server: #27ae60;
-    --bg: #f4f7f6;
-    --card: #ffffff;
-    --text: #333;
+    --primary: #00d4ff;
+    --primary-glow: rgba(0, 212, 255, 0.4);
+    --bg-dark: #0a0b10;
+    --card-bg: rgba(18, 20, 30, 0.8);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-main: #e0e6ed;
+    --text-dim: #94a3b8;
+    --attacker: #ff0055;
+    --attacker-glow: rgba(255, 0, 85, 0.4);
+    --server: #00ffa3;
+    --server-glow: rgba(0, 255, 163, 0.4);
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 }
 
 * {
@@ -16,157 +21,324 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(0, 212, 255, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(255, 0, 85, 0.05) 0px, transparent 50%);
+    color: var(--text-main);
     line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 header {
-    background-color: var(--secondary);
-    color: white;
+    background: rgba(10, 11, 16, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 2.5rem 1rem;
     text-align: center;
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(90deg, var(--primary), var(--server));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+header p {
+    color: var(--text-dim);
+    font-size: 1.1rem;
 }
 
 .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
 }
 
 .card {
-    background: var(--card);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    grid-column: span 12;
+}
+
+.card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
 }
 
 h3 {
-    border-bottom: 2px solid var(--primary);
-    padding-bottom: 10px;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--primary);
     margin-bottom: 1.5rem;
-    color: var(--secondary);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-/* Mode Selector */
+h3::before {
+    content: '>';
+    font-weight: bold;
+}
+
+/* Specific Grid Layouts */
+.settings { grid-column: span 4; }
+.input-area { grid-column: span 8; }
+.packet-box { grid-column: span 6; }
+.diagram { grid-column: span 6; }
+.logs { grid-column: span 12; }
+.info { grid-column: span 12; }
+
+/* Buttons & Selectors */
 .mode-selector {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .mode-selector button {
-    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
     padding: 0.8rem;
-    border: 2px solid var(--primary);
-    background: transparent;
-    color: var(--primary);
-    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
+    font-weight: 600;
+    transition: 0.2s;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mode-selector button:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .mode-selector button.active {
-    background: var(--primary);
-    color: white;
+    background: rgba(0, 212, 255, 0.15);
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.mode-selector button.active::after {
+    content: '●';
+    color: var(--primary);
+    font-size: 0.8rem;
 }
 
 /* Form Styles */
+#login-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
 .form-group {
-    margin-bottom: 1rem;
+    grid-column: span 1;
 }
 
-.form-group label {
+.form-group:last-of-type {
+    grid-column: span 2;
+}
+
+label {
     display: block;
-    font-weight: bold;
+    color: var(--text-dim);
+    font-size: 0.85rem;
     margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
 }
 
-.form-group input {
+input {
     width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    color: white;
     padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px var(--primary-glow);
 }
 
 #btn-login {
-    width: 100%;
-    padding: 1rem;
-    background: var(--secondary);
-    color: white;
+    grid-column: span 2;
+    background: var(--primary);
+    color: #000;
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Packet Box */
-.packet-display {
-    background: #2c3e50;
-    color: #ecf0f1;
     padding: 1rem;
-    border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace;
+    border-radius: 6px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 0.5rem;
 }
 
-/* Diagram */
-.flow {
+#btn-login:hover {
+    background: #fff;
+    box-shadow: 0 0 20px #fff;
+}
+
+/* Packet Display */
+.packet-display {
+    background: #000;
+    border-radius: 8px;
+    padding: 1.2rem;
+    position: relative;
+    border-left: 4px solid var(--primary);
+}
+
+#packet-content {
+    font-family: var(--font-mono);
+    color: var(--server);
+    font-size: 0.9rem;
+    display: block;
+    min-height: 3rem;
+    word-break: break-all;
+}
+
+/* Network Diagram Animation */
+.flow-container {
+    height: 150px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.node-item {
+    text-align: center;
+    z-index: 2;
+}
+
+.node-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    padding: 1rem 0;
+    justify-content: center;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--border-color);
+    margin-bottom: 0.5rem;
+    transition: 0.3s;
 }
 
-.node {
-    padding: 1rem;
-    border-radius: 5px;
-    color: white;
+.node-item.active .node-circle {
+    box-shadow: 0 0 20px currentColor;
+    border-color: currentColor;
+}
+
+.node-label {
+    font-size: 0.75rem;
     font-weight: bold;
-    min-width: 150px;
-    text-align: center;
+    text-transform: uppercase;
 }
 
-.user { background: var(--primary); }
-.attacker { background: var(--attacker); animation: blink 2s infinite; }
-.server { background: var(--server); }
-
-@keyframes blink {
-    50% { opacity: 0.8; box-shadow: 0 0 15px var(--attacker); }
+.flow-line {
+    position: absolute;
+    top: 50%;
+    left: 80px;
+    right: 80px;
+    height: 2px;
+    background: var(--border-color);
+    z-index: 1;
+    transform: translateY(-20px);
 }
 
-.arrow { font-size: 1.5rem; color: var(--secondary); }
+.packet-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+    position: absolute;
+    top: -4px;
+    left: 0;
+    display: none;
+    box-shadow: 0 0 10px var(--primary);
+}
 
-/* Table Dashboard */
+/* Hacker Table */
 .table-container {
     overflow-x: auto;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
 }
 
-table th, table td {
-    padding: 0.8rem;
+th {
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--primary);
+    border-bottom: 1px solid var(--border-color);
 }
 
-table th {
-    background: #f8f9fa;
-    color: var(--secondary);
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-dim);
 }
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-main);
+}
+
+.status-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.status-insecure { background: rgba(255, 0, 85, 0.1); color: var(--attacker); }
+.status-secure { background: rgba(0, 255, 163, 0.1); color: var(--server); }
 
 /* Info Grid */
 .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
+}
+
+.info-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.2rem;
+    border-radius: 8px;
 }
 
 .info-item h4 {
@@ -176,6 +348,22 @@ table th {
 
 footer {
     text-align: center;
-    padding: 2rem;
-    color: #777;
+    padding: 4rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+@keyframes flash {
+    0% { background: transparent; }
+    50% { background: rgba(255, 0, 85, 0.3); }
+    100% { background: transparent; }
+}
+
+@media (max-width: 900px) {
+    .settings, .input-area, .packet-box, .diagram {
+        grid-column: span 12;
+    }
+    #login-form {
+        grid-template-columns: 1fr;
+    }
 }
