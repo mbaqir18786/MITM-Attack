@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,12 @@
     <!-- Modern Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
         <h1>MITM Simulation</h1>
@@ -123,28 +127,35 @@
             <div class="info-grid">
                 <div class="info-item">
                     <h4>The MITM Vulnerability</h4>
-                    <p>In this lab, the "Attacker" acts as a proxy. Real MITM attacks often use <strong>ARP Spoofing</strong> to trick your device into sending data through them.</p>
+                    <p>In this lab, the "Attacker" acts as a proxy. Real MITM attacks often use <strong>ARP
+                            Spoofing</strong> to trick your device into sending data through them.</p>
                 </div>
                 <div class="info-item">
                     <h4>Encoding (Base64) vs Encryption</h4>
-                    <p>Observe the "Secure Mode". It uses Base64. This is <strong>not encryption</strong>; it's just a different way to write the same text. Anyone can decode it.</p>
+                    <p>Observe the "Secure Mode". It uses Base64. This is <strong>not encryption</strong>; it's just a
+                        different way to write the same text. Anyone can decode it.</p>
                 </div>
                 <div class="info-item">
                     <h4>Why Hashing is Better</h4>
-                    <p>In "Hashing Mode", the password itself is never sent. A mathematical fingerprint (hash) is sent instead, making it useless to an interceptor.</p>
+                    <p>In "Hashing Mode", the password itself is never sent. A mathematical fingerprint (hash) is sent
+                        instead, making it useless to an interceptor.</p>
                 </div>
                 <div class="info-item">
                     <h4>The Role of TLS (HTTPS)</h4>
-                    <p>HTTPS doesn't just encrypt; it uses <strong>Certificates</strong> to prove the server is who they say they are, preventing the "Attacker Proxy" from mimicking the server.</p>
+                    <p>HTTPS doesn't just encrypt; it uses <strong>Certificates</strong> to prove the server is who they
+                        say they are, preventing the "Attacker Proxy" from mimicking the server.</p>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>© 2026 CYBERNETICS LAB | MITM EDUCATIONAL SIMULATION</p>
+        <!-- <p>© 2026 CYBERNETICS LAB | MITM EDUCATIONAL SIMULATION</p> -->
+        <p>© 2026 | A group project by Sai, Shardul, Baqir</p>
+
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>
