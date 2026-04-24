@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attacker Dashboard | MITM Simulation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background-color: #1a1a1a; color: #eee; }
+        .card { background: #2c2c2c; color: #eee; border: 1px solid #444; }
+        h3 { border-bottom-color: var(--attacker); color: var(--attacker); }
+        .back-link {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--attacker);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover { text-decoration: underline; }
+        header { background-color: #000; border-bottom: 3px solid var(--attacker); }
+        table th { background: #333; color: #fff; }
+        table td { border-bottom: 1px solid #444; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="color: var(--attacker);">💀 Attacker Dashboard</h1>
+        <p>Intercepted Data & Network Logs (Real-time)</p>
+    </header>
+
+    <main class="container">
+        <a href="index.html" class="back-link">← Back to Main Menu</a>
+
+        <!-- 1. FLOW DIAGRAM -->
+        <section class="card diagram">
+            <h3>Network Position: Man-in-the-Middle</h3>
+            <div class="flow">
+                <div class="node user" style="opacity: 0.6;">User</div>
+                <div class="arrow">⮕</div>
+                <div class="node attacker">YOU (Intercepter)</div>
+                <div class="arrow">⮕</div>
+                <div class="node server" style="opacity: 0.6;">Real Server</div>
+            </div>
+            <p style="text-align: center; font-size: 0.9rem; margin-top: 10px;">You are currently capturing all traffic between the User and the Server.</p>
+        </section>
+
+        <!-- 2. ATTACKER DASHBOARD -->
+        <section class="card logs">
+            <h3>Captured Credentials</h3>
+            <div class="table-container">
+                <table id="log-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Mode</th>
+                            <th>Username</th>
+                            <th>Password (Intercepted)</th>
+                            <th>Raw HTTP Request</th>
+                        </tr>
+                    </thead>
+                    <tbody id="log-body">
+                        <!-- Logs will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. ATTACKER CONCEPTS -->
+        <section class="card info">
+            <h3>Attacker Techniques</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>ARP Poisoning</h4>
+                    <p>By tricking the victim's machine into thinking your MAC address belongs to the gateway, all their traffic flows through you first.</p>
+                </div>
+                <div class="info-item">
+                    <h4>SSL Stripping</h4>
+                    <p>Attackers can sometimes force a victim to use HTTP instead of HTTPS, allowing passwords to be read in plaintext.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>CNIS MITM Lab | Attacker Perspective</p>
+    </footer>
+
+    <script src="attacker.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victim Login | MITM Simulation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .back-link {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Login (Victim)</h1>
+        <p>This is the legitimate-looking login page the user interacts with.</p>
+    </header>
+
+    <main class="container">
+        <a href="index.html" class="back-link">← Back to Main Menu</a>
+
+        <!-- 1. CONFIGURATION & MODE SWITCH -->
+        <section class="card settings">
+            <h3>1. Select Security Mode</h3>
+            <div class="mode-selector">
+                <button id="insecure-mode" class="active">Insecure Mode (HTTP)</button>
+                <button id="secure-mode">Secure Mode (HTTPS Sim)</button>
+            </div>
+            <p id="mode-desc">Current Mode: <strong>Insecure</strong>. Data is sent in raw plaintext.</p>
+        </section>
+
+        <!-- 2. LOGIN FORM -->
+        <section class="card input-area">
+            <h3>2. User Login</h3>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" id="btn-login">Submit Securely?</button>
+            </form>
+        </section>
+
+        <!-- 3. PACKET SIMULATION BOX -->
+        <section class="card packet-box">
+            <h3>3. Real-time Packet View</h3>
+            <p>What is actually being sent over the network:</p>
+            <div class="packet-display">
+                <code id="packet-content">Waiting for input...</code>
+            </div>
+        </section>
+
+        <!-- 4. CNIS CONCEPTS SECTION -->
+        <section class="card info">
+            <h3>Key Concepts for the Victim</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>Phishing & Fake Sites</h4>
+                    <p>Victims often don't realize they are on a fake site or that their connection is being proxied by an attacker.</p>
+                </div>
+                <div class="info-item">
+                    <h4>The Lock Icon</h4>
+                    <p>In "Secure Mode", we simulate HTTPS. Look at how the password changes to Base64 in the packet view—this is a simplified version of encryption!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>CNIS MITM Lab | Victim Perspective</p>
+    </footer>
+
+    <script src="victim.js"></script>
+</body>
+</html>
